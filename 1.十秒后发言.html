@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style>
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			#div1{
+				background-color: blanchedalmond;
+				width: 800px;
+				height: 350px;
+				margin: 0 auto;
+				overflow-y: auto;
+			}
+			#div2{
+				background-color: beige;
+				width: 800px;
+				height: 150px;
+				margin: 0 auto;
+			}
+			#p1{
+				width: 100px;
+				margin: 0 auto;
+				padding: 10px 20px;
+			}
+			textarea{
+				width: 99.5%;
+				height: 100px;
+				resize: none;
+			}
+			button{
+				padding: 1px 18px;
+				margin-left: 730px;
+				margin-top: 12px;
+			}
+		</style>
+		<title></title>
+		<script type="text/javascript" src="jquery-1.8.0.js"></script>
+		<script>
+			
+			$(function(){
+				
+				//定时器，判断是否是十秒之后
+				var time=setInterval(function(){
+					var v=$("#p1 font").html();
+					if(v<=1){
+						$("button").removeAttr("disabled");
+						$("#p1").html("可以发言");
+						clearInterval(time);
+					}else{
+						$("#p1 font").html(v-1);
+					}
+				},1000);
+				
+				//鼠标点击发送
+				$("button").click(function(){
+					//得到textarea的数据
+					var v=$("textarea").val();
+					//判断是否为空
+					if(""==v){
+						alert("发送消息不能为空");
+						$("textarea").focus();
+					}else if(v.length>45){
+						alert("发送消息不能超过45个字符");
+					}else{
+						//添加到上面的对话框
+						var str="我: "+$("textarea").val();
+						var trtd="<tr><td>"+str+"</td></tr>";
+						$("#table1").append(trtd);
+						$("textarea").val("").focus();
+					}
+				});
+				
+			});
+			
+		</script>
+	</head>
+	<body>
+		<br />
+		<hr />
+		<br />
+		<div id="div1">
+			<p id="p1"><font color="red">10</font>秒后可发言</p>
+			<hr />
+			<table id="table1">
+				
+			</table>
+		</div>
+		<div id="div2">
+			<textarea></textarea>
+			<button disabled="disabled">发送</button>
+		</div>
+	</body>
+</html>

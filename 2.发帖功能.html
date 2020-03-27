@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			#div1,#div2{
+				background-color: antiquewhite;
+				width: 1000px;
+				height: 320px;
+				margin: 0 auto;
+				overflow: hidden;
+				border: 1px solid black;
+			}
+			#div2{
+				border-top: 1px solid gray;
+			}
+			#text1,#text2{
+				resize: none;
+			}
+			#text1{
+				width: 400px;
+				height: 50px;
+			}
+			#text2{
+				width: 400px;
+				height: 100px;
+			}
+			table{
+				border-collapse: collapse;
+				width: 80%;
+				margin: 0 auto;
+			}
+			table tr td{
+				border: 1px solid black;
+				height: 36px;
+				padding: 1px 10px;
+			}
+			button{
+				margin-left: 330px;
+				padding: 1px 18px;
+			}
+			span{
+				padding: 0px 20px;
+			}
+			#div1 table{
+				width: 700px;
+			}
+			.blue{
+				color: blue;
+			}
+			.green{
+				color: green;
+			}
+			.red{
+				color: red;
+			}
+		</style>
+		<script type="text/javascript" src="jquery-1.8.0.js"></script>
+		<script>
+			
+			$(function(){
+				
+				$("#t1 tr td:first").css("width","100px");
+				
+				//提示输入
+				$("#title").click(function(){
+					$("#title + span").html("请添加标题").removeClass().addClass("blue");
+				});
+				
+				$("#user").click(function(){
+					$("#user + span").html("请添加作者").removeClass().addClass("blue");
+				});
+				
+				$("#text1").click(function(){
+					$("#text1 + span").html("请添加简介").removeClass().addClass("blue");
+				});
+				
+				$("#text2").click(function(){
+					$("#text2 + span").html("请添加正文").removeClass().addClass("blue");
+				});
+				
+				//总验证
+				$("button").click(function(){
+					var title=$("#title").val();
+					var user=$("#user").val();
+					var text1=$("#text1").val();
+					var text2=$("#text2").val();
+					var result=true;
+					var r;
+					
+					if(title.length==0){
+						$("#title + span").html("标题不能为空").removeClass().addClass("red");
+						result=false;
+					}else{
+						$("#title + span").html("√").removeClass().addClass("green");
+					}
+					
+					if(user.length==0){
+						$("#user + span").html("作者不能为空").removeClass().addClass("red");
+						result=false;
+					}else{
+						$("#user + span").html("√").removeClass().addClass("green");
+					}
+					
+					if(text1.length==0){
+						$("#text1 + span").html("介绍不能为空").removeClass().addClass("red");
+						result=false;
+					}else{
+						$("#text1 + span").html("√").removeClass().addClass("green");
+					}
+					
+					if(text2.length==0){
+						$("#text2 + span").html("正文不能为空").removeClass().addClass("red");
+						result=false;
+					}else{
+						$("#text2 + span").html("√").removeClass().addClass("green");
+					}
+					
+					if(result){
+						r=confirm("确定要发布吗");
+					}
+					
+					if(r){
+						//点击发布后
+						//拼接出dom节点
+						var node="<tr><td> 标题 </td><td> "+title+" </td><td> 作者 </td><td> "+user+" </td><td> 简介 </td><td> "+text1+" </td></tr>";
+						//放入div1中
+						$("#div1 table").append(node);
+						//清空div2的数据
+						$("#title").val("");
+						$("#user").val("");
+						$("#text1").val("");
+						$("#text2").val("");
+					}
+					
+				});
+			});
+			
+		</script>
+	</head>
+	<body>
+		
+		<br />
+		<div id="div1">
+			<table></table>
+		</div>
+		
+		<div id="div2">
+			<br />
+			<table id="t1">
+				<tr>
+					<td>标题</td><td><input id="title"/><span></span></td>
+				</tr>
+				<tr>
+					<td>作者</td><td><input id="user"/><span></span></td>
+				</tr>
+				<tr>
+					<td>简介</td><td><textarea id="text1"></textarea><span></span></td>
+				</tr>
+				<tr>
+					<td>正文</td><td><textarea id="text2"></textarea><span></span></td>
+				</tr>
+				<tr>
+					<td colspan="2"><button>发布</button></td>
+				</tr>
+			</table>
+			
+		</div>
+		
+	</body>
+</html>
